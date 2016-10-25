@@ -3,7 +3,10 @@
 var request = require('request');
 var models = require('../app/models/index');
 var env = require('node-env-file');
-env(".env");
+
+if (process.env.NODE_ENV !== "production"){
+  env(".env");
+}
 
 function updateEvents() {
   request('https://api.meetup.com/find/events?key=' + process.env.API_KEY + '&lat=51.5074&lon=0.1278', function(error, response, body) {
