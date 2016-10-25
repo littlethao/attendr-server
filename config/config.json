@@ -14,8 +14,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "username": "root",
+    "username": null,
     "password": null,
     "database": "attendr_production",
     "host": "127.0.0.1",
