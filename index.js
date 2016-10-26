@@ -9,9 +9,9 @@ this.server = http.createServer(function(req, res) {
     }
   else if (req.url === '/events' && req.method == 'GET') {
     models.Event.findAll().then(function(results){
-      var json = results.map(function(element){ return element.dataValues});
+      var array = results.map(function(element){ return element.dataValues});
       res.writeHead(200, {'Content-Type': 'JSON'});
-      res.end(JSON.stringify(json));
+      res.end(JSON.stringify({events: array}));
     })
   }
   else {
