@@ -6,7 +6,7 @@ var server = require('../../index.js')
 describe('Event', function() {
   beforeEach(function(done) {
     server.listen(3000);
-    models.Event.destroy({where: {name: "Single Mingle"} }).then(function(){
+    models.Event.destroy({where: {} }).then(function(){
       models.Event.create({
           name: "Single Mingle",
           description: "A Mingle for Singles",

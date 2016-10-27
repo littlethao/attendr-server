@@ -13,7 +13,7 @@ describe("Database Manager", function() {
                link: 'http://www.makersacademy.com',
                meetup_id: '1234' }
 
-    models.Event.destroy({where: {name: "Single Mingle"} }).then(function(){
+    models.Event.destroy({where: {} }).then(function(){
       models.Event.create(object).then(function() { done() });
     });
   });
@@ -28,9 +28,8 @@ describe("Database Manager", function() {
   it('adds user to database', function(done){
       databaseManager.addUser({first: 'Elizabeth', last: "test", email:"test"}).then(function(results){
         models.User.findAll().then(function(results){
-          console.log(results);
           expect(results.length).toEqual(1);
-          models.User.destroy({where: {first: "Elizabeth"} })
+          models.User.destroy({where: {} })
           done();
         });
       });

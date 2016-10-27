@@ -10,7 +10,7 @@ describe('Event', function() {
 
   afterEach(function(done) {
     server.close();
-    models.User.destroy({where: {first: "Elizabeth"}}).then(function(){
+    models.User.destroy({where: {}}).then(function(){
       done()
     })
   });

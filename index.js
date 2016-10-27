@@ -6,9 +6,9 @@ var querystring = require('querystring');
 this.server = http.createServer(function(req, res) {
 
   if (req.url === '/') {
-      res.writeHead(200, {'Content-Type': 'JSON'});
-      res.end();
-    }
+    res.writeHead(200, {'Content-Type': 'JSON'});
+    res.end();
+  }
 
   else if (req.url === '/events' && req.method === 'GET') {
     databaseManager.getEvents().then(function(results){
@@ -18,17 +18,16 @@ this.server = http.createServer(function(req, res) {
   }
 
   else if (req.url === '/users/new' && req.method === 'POST') {
-    whole = ''
-     req.on('data', (chunk) => {
-         whole += chunk.toString()
-     })
-     req.on('end', () => {
-         params = querystring.parse(whole)
-         databaseManager.addUser(params).then(function(results){
-           res.writeHead(200, {'Content-Type': 'JSON'})
-           res.end(JSON.stringify({user_id:results}))
-         })
-     })
+    var whole = ''
+    req.on('data', (chunk) => { whole += chunk.toString() })
+
+    req.on('end', () => {
+      var params = querystring.parse(whole)
+      databaseManager.addUser(params).then(function(results){
+        res.writeHead(200, {'Content-Type': 'JSON'})
+        res.end(JSON.stringify({user_id:results}))
+      })
+    })
   }
 
   else {
