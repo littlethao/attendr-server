@@ -8,17 +8,20 @@ describe('Event', function() {
     server.listen(3000);
   });
 
-  afterEach(function() {
+  afterEach(function(done) {
     server.close();
+    models.User.destroy({where: {first: "Elizabeth"}}).then(function(){
+      done()
+    })
   });
 
   it('tests',function(done){
     var options = {url: 'http://localhost:3000/users/new',
                    method: "POST",
-                   body: "name=Elizabeth"}
+                   body: "first=Elizabeth&last=Coffee&email=test@example.com&pic=123&gender=F&age=14"}
 
     request(options, function(error, response, body) {
-      expect(body).toContain('{user_id:');
+      expect(body).toContain('user_id');
       done();
     });
   });

@@ -21,6 +21,7 @@
     "node-env-file": "^0.1.8",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
+    "querystring": "^0.2.0",
     "request": "^2.76.0",
     "sequelize": "^3.24.5",
     "sequelize-cli": "^2.4.0"

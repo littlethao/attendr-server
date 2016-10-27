@@ -1,5 +1,7 @@
 var http = require('http');
-var DatabaseManager = require('./lib/database')
+var DatabaseManager = require('./lib/DatabaseManager');
+var databaseManager = new DatabaseManager;
+var querystring = require('querystring');
 
 this.server = http.createServer(function(req, res) {
 
@@ -9,9 +11,10 @@ this.server = http.createServer(function(req, res) {
     }
 
   else if (req.url === '/events' && req.method == 'GET') {
-    var results = DatabaseManager.getEvents();
-    res.writeHead(200, {'Content-Type': 'JSON'});
-    res.end(JSON.stringify({events: results}));
+    databaseManager.getEvents().then(function(results){
+      res.writeHead(200, {'Content-Type': 'JSON'});
+      res.end(JSON.stringify({events: results}));
+    });
   }
 
   else if (req.url === '/users/new' && req.method == 'POST') {
@@ -20,11 +23,14 @@ this.server = http.createServer(function(req, res) {
          whole += chunk.toString()
      })
      req.on('end', () => {
-
-         res.writeHead(200, 'OK', {'Content-Type': 'text/html'})
-         res.end(whole)
+         params = querystring.parse(whole)
+         databaseManager.addUser(params).then(function(results){
+           res.writeHead(200, {'Content-Type': 'JSON'})
+           res.end(JSON.stringify({user_id:results}))
+         })
      })
   }
+
   else {
     res.writeHead(404);
     res.end();
