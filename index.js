@@ -2,8 +2,11 @@ var http = require('http');
 var DatabaseManager = require('./lib/databaseManager');
 var databaseManager = new DatabaseManager;
 var querystring = require('querystring');
+var url = require('url');
+
 
 this.server = http.createServer(function(req, res) {
+  var url_parts = url.parse(req.url, true);
 
   if (req.url === '/') {
     res.writeHead(200, {'Content-Type': 'JSON'});
@@ -14,6 +17,13 @@ this.server = http.createServer(function(req, res) {
     databaseManager.getEvents().then(function(results){
       res.writeHead(200, {'Content-Type': 'JSON'});
       res.end(JSON.stringify({events: results}));
+    });
+  }
+
+  else if (url_parts.pathname === '/matches' && req.method === 'GET') {
+    databaseManager.getMatches(url_parts.query).then(function(results){
+      res.writeHead(200, {'Content-Type': 'JSON'});
+      res.end(JSON.stringify({matches: results}));
     });
   }
 

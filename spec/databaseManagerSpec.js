@@ -24,6 +24,7 @@ describe("Database Manager", function() {
     models.Event.destroy({where: {} })
     models.RSVP.destroy({where: {} })
     models.User.destroy({where: {} }).then(function(){done()})
+
   });
 
   it('retrieves database entries', function(done){
@@ -56,6 +57,25 @@ describe("Database Manager", function() {
           done();
         });
       });
+    });
+  })
+
+  it('adds RSVPs to database', function(done){
+    var user = {first:'Elizabeth', last:'Coffee', email:'test@example.com', pic:'123', gender:'F', age: '14'}
+    var user2 = {first:'Tom', last: 'Stuart', email:'a@b.com', pic:'567', gender:'M', age: '24'}
+    models.User.create(user).then(function(results){
+      user_id = results.id;
+      models.RSVP.create({EventId: event_id, UserId: user_id});
+    });
+    models.User.create(user2).then(function(results){
+      var user2 = results
+      models.RSVP.create({EventId: event_id, UserId: user2.id}).then(function(){
+
+        databaseManager.getMatches({user_id: user_id}).then(function(results){
+          expect(results).toEqual([user2.dataValues]);
+          done();
+        });
+      })
     });
   })
 
