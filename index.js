@@ -1,5 +1,5 @@
 var http = require('http');
-var DatabaseManager = require('./lib/DatabaseManager');
+var DatabaseManager = require('./lib/databaseManager');
 var databaseManager = new DatabaseManager;
 var querystring = require('querystring');
 
@@ -10,14 +10,14 @@ this.server = http.createServer(function(req, res) {
       res.end();
     }
 
-  else if (req.url === '/events' && req.method == 'GET') {
+  else if (req.url === '/events' && req.method === 'GET') {
     databaseManager.getEvents().then(function(results){
       res.writeHead(200, {'Content-Type': 'JSON'});
       res.end(JSON.stringify({events: results}));
     });
   }
 
-  else if (req.url === '/users/new' && req.method == 'POST') {
+  else if (req.url === '/users/new' && req.method === 'POST') {
     whole = ''
      req.on('data', (chunk) => {
          whole += chunk.toString()
