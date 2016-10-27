@@ -3,7 +3,7 @@ var models = require('../../models/index');
 var request = require('request');
 var server = require('../../index.js')
 
-describe('Event', function() {
+describe('get Events', function() {
   beforeEach(function(done) {
     server.listen(3000);
     models.Event.destroy({where: {} }).then(function(){
@@ -21,7 +21,7 @@ describe('Event', function() {
     server.close();
   });
 
-  it('tests',function(done){
+  it('returns list of events',function(done){
     request('http://localhost:3000/events', function(error, response, body) {
       expect(body).toContain('"meetup_id":"1234","name":"Single Mingle"')
       done()
