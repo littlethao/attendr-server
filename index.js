@@ -17,6 +17,19 @@ this.server = http.createServer(function(req, res) {
     });
   }
 
+  else if (req.url === '/response/new' && req.method === 'POST') {
+    var whole = ''
+    req.on('data', (chunk) => { whole += chunk.toString() })
+
+    req.on('end', () => {
+      var params = querystring.parse(whole)
+      databaseManager.addResponse(params).then(function(results){
+        res.writeHead(200, {'Content-Type': 'JSON'});
+        res.end();
+      });
+    });
+  }
+
   else if (req.url === '/users/new' && req.method === 'POST') {
     var whole = ''
     req.on('data', (chunk) => { whole += chunk.toString() })
@@ -26,8 +39,8 @@ this.server = http.createServer(function(req, res) {
       databaseManager.addUser(params).then(function(results){
         res.writeHead(200, {'Content-Type': 'JSON'})
         res.end(JSON.stringify({user_id:results}))
-      })
-    })
+      });
+    });
   }
 
   else {
