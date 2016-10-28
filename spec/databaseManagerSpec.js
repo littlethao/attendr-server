@@ -27,7 +27,6 @@ describe("Database Manager", function() {
 
   it('retrieves database entries', function(done){
       databaseManager.getEvents().then(function(results){
-        console.log(results);
         expect(results.pop().name).toEqual(single_event.name);
         done();
       })
