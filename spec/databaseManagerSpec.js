@@ -36,7 +36,6 @@ describe("Database Manager", function() {
       databaseManager.addUser({first: 'Elizabeth', last: "test", email:"test"}).then(function(results){
         models.User.findAll().then(function(results){
           expect(results.length).toEqual(1);
-          models.User.destroy({where: {} })
           done();
         });
       });
@@ -48,7 +47,6 @@ describe("Database Manager", function() {
     models.User.create(user).then(function(results){
       var user_id = results.id;
       databaseManager.addResponse({user_id: user_id, event_id: event_id}).then(function(results){
-
         models.RSVP.findAll().then(function(results){
           expect(results.length).toEqual(1);
           done();
