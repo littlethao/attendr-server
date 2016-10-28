@@ -1,0 +1,40 @@
+<h3>Attend-Server</h3>
+<h4>Avaliable Routes</h4>
+
+<table border="1">
+  <tr>
+    <td><strong>Method</strong></td>
+    <td><strong>Route</strong></td>
+    <td><strong>Params</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Return Value</strong></td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/events</td>
+    <td>N/A</td>
+    <td>Route for getting list of avaliable events</td>
+    <td>JSON of avaliable events</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/matches</td>
+    <td>{user_id}</td>
+    <td>Route for getting list of users matches</td>
+    <td>JSON of matches for user</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>/response/new</td>
+    <td>{user_id, event_id}</td>
+    <td>Route for adding responses to events</td>
+    <td>N/A</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>/users/new</td>
+    <td>{first, last, email, pic, gender, age}</td>
+    <td>Route for adding new user, returns to events</td>
+    <td>JSON of Users_ID</td>
+  </tr>
+</table>

@@ -2,6 +2,7 @@ process.env.NODE_ENV ='test';
 var models = require('../../models/index');
 var request = require('request');
 var server = require('../../index.js')
+var databaseCleaner = require('../support/cleaner');
 
 describe('get Matches', function() {
   beforeEach(function(done) {
@@ -33,9 +34,7 @@ describe('get Matches', function() {
 
   afterEach(function(done) {
     server.close();
-    models.User.destroy({where: {} })
-    models.RSVP.destroy({where: {} })
-    models.Event.destroy({where: {} }).then(function(){done()})
+    databaseCleaner.clean(done)
   });
 
   it('returns list of matches',function(done){

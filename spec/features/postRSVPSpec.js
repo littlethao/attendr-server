@@ -1,7 +1,8 @@
 process.env.NODE_ENV ='test';
 var models = require('../../models/index');
 var request = require('request');
-var server = require('../../index.js')
+var server = require('../../index.js');
+var databaseCleaner = require('../support/cleaner');
 
 describe('postUsers', function() {
   beforeEach(function(done) {
@@ -26,9 +27,7 @@ describe('postUsers', function() {
 
   afterEach(function(done) {
     server.close();
-    models.Event.destroy({where: {} })
-    models.RSVP.destroy({where: {} })
-    models.User.destroy({where: {} }).then(function(){done()})
+    databaseCleaner.clean(done)
   });
 
 

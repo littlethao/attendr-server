@@ -3,14 +3,17 @@ var DatabaseManager = require('./lib/databaseManager');
 var databaseManager = new DatabaseManager;
 var querystring = require('querystring');
 var url = require('url');
-
+var fs = require('fs');
 
 this.server = http.createServer(function(req, res) {
   var url_parts = url.parse(req.url, true);
 
   if (req.url === '/') {
-    res.writeHead(200, {'Content-Type': 'JSON'});
-    res.end();
+    fs.readFile('./views/index.html', function (err, html) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(html);
+      res.end();
+    });
   }
 
   else if (req.url === '/events' && req.method === 'GET') {

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ewansheldon/attendr-server#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "istanbul": "^0.4.5",
     "jasmine-node": "^1.14.5",
     "node-env-file": "^0.1.8",

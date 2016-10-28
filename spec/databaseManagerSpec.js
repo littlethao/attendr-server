@@ -1,6 +1,7 @@
 process.env.NODE_ENV ='test';
 var DatabaseManager = require("../lib/databaseManager");
 var models = require('../models/index');
+var databaseCleaner = require('./support/cleaner');
 
 describe("Database Manager", function() {
 
@@ -21,10 +22,7 @@ describe("Database Manager", function() {
   });
 
   afterEach(function(done) {
-    models.Event.destroy({where: {} })
-    models.RSVP.destroy({where: {} })
-    models.User.destroy({where: {} }).then(function(){done()})
-
+    databaseCleaner.clean(done)
   });
 
   it('retrieves database entries', function(done){

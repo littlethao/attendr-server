@@ -2,6 +2,7 @@ process.env.NODE_ENV ='test';
 var models = require('../../models/index');
 var request = require('request');
 var server = require('../../index.js')
+var databaseCleaner = require('../support/cleaner');
 
 describe('Event', function() {
   beforeEach(function(done) {
@@ -17,8 +18,7 @@ describe('Event', function() {
 
   afterEach(function(done) {
     server.close();
-    models.Event.destroy({where: {}}).then(function(){
-      done() });
+    databaseCleaner.clean(done)
   });
 
   it('tests',function(done){
