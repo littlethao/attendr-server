@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover --include-all-sources jasmine-node spec"
   },
   "repository": {
     "type": "git",
@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/ewansheldon/attendr-server#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
+    "istanbul": "^0.4.5",
     "jasmine-node": "^1.14.5",
     "node-env-file": "^0.1.8",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
+    "querystring": "^0.2.0",
     "request": "^2.76.0",
     "sequelize": "^3.24.5",
-    "sequelize-cli": "^2.4.0"
+    "sequelize-cli": "^2.4.0",
+    "url": "^0.11.0"
   }
 }

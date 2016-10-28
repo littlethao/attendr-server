@@ -1,5 +1,4 @@
 #! /app/.heroku/node/bin/node
-
 var request = require('request');
 var models = require('../models/index');
 var env = require('node-env-file');
@@ -9,27 +8,43 @@ if (process.env.NODE_ENV !== "production"){
 }
 
 function updateEvents() {
-  request('https://api.meetup.com/find/events?key=' + process.env.API_KEY + '&lat=51.5074&lon=0.1278', function(error, response, body) {
-    body = JSON.parse(body);
-    body.forEach(function(event) {
-      createEvent(event);
+  return new Promise(function(resolve, reject) {
+    request('https://api.meetup.com/find/events?key=' + process.env.API_KEY + '&lat=51.5074&lon=0.1278', function(error, response, body) {
+      body = JSON.parse(body);
+      _async_iterate(body, resolve)
     });
   });
 }
 
-function createEvent(event){
+function _async_iterate(collection, callback) {
+  var inserted = 0;
+  for(var i = 0; i < collection.length; i++) {
+    _createEvent(collection[i], function() {
+      if (++inserted == collection.length-1) {
+        callback();
+      }
+    });
+  }
+}
+
+function _createEvent(event, callback){
+  models.Event.create(_makeEvent(event)).then(function(){
+    callback()}, function(){callback()});
+}
+
+function _makeEvent(event){
   var address = (event.venue ? event.venue.address_1 : "London");
   var description = (event.description ? event.description : "Unknown" );
-
-  models.Event.create({
+  return {
     name: event.name,
     description: description,
     address: address,
     date: new Date(parseInt(event.time)),
     link: event.link,
     meetup_id: event.id
-  });
+  }
 }
 
+exports.updateEvents = updateEvents;
 
 updateEvents();
