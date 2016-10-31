@@ -33,7 +33,7 @@ describe("Database Manager", function() {
   })
 
   it('adds user to database', function(done){
-      databaseManager.addUser({first: 'Elizabeth', last: "test", email:"test"}).then(function(results){
+      databaseManager.addUser({first: 'Elizabeth', last: "test", fbid:"123"}).then(function(results){
         models.User.findAll().then(function(results){
           expect(results.length).toEqual(1);
           done();

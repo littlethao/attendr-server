@@ -17,11 +17,28 @@ describe('postUsers', function() {
   it('adds a user to DB',function(done){
     var options = {url: 'http://localhost:3000/users/new',
                    method: "POST",
-                   body: "first=Elizabeth&last=Coffee&email=test@example.com&pic=123&gender=F&age=14"}
+                   body: "first=Elizabeth&last=Coffee&fbid=123&gender=F"}
 
     request(options, function(error, response, body) {
       expect(body).toContain('user_id');
       done();
     });
   });
+
+  it('returns id on existing user',function(done){
+    var options = {url: 'http://localhost:3000/users/new',
+                   method: "POST",
+                   body: "first=Elizabeth&last=Coffee&fbid=123&gender=F"}
+
+    request(options, function(error, response, body) {
+      var body1 = body
+      request(options, function(error, response, body) {
+        expect(body).toEqual(body1);
+        done();
+      });
+    });
+
+  });
+
+
 });
