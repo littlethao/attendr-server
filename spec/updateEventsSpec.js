@@ -15,7 +15,7 @@ describe('Meetup API script', function() {
     models.Event.destroy({where: {}}).then(function(){done()});
   });
 
-  it('tests',function(done){
+  it('updates new events',function(done){
     models.Event.findAll().then(function(results){
       expect(results.length).toBeGreaterThan(1);
       done();

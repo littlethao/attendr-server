@@ -27,17 +27,15 @@ describe("Database Manager", function() {
 
   it('retrieves database entries', function(done){
       databaseManager.getEvents().then(function(results){
-        console.log(results);
         expect(results.pop().name).toEqual(single_event.name);
         done();
       })
   })
 
   it('adds user to database', function(done){
-      databaseManager.addUser({first: 'Elizabeth', last: "test", email:"test"}).then(function(results){
+      databaseManager.addUser({first: 'Elizabeth', last: "test", fbid:"123"}).then(function(results){
         models.User.findAll().then(function(results){
           expect(results.length).toEqual(1);
-          models.User.destroy({where: {} })
           done();
         });
       });
@@ -49,7 +47,6 @@ describe("Database Manager", function() {
     models.User.create(user).then(function(results){
       var user_id = results.id;
       databaseManager.addResponse({user_id: user_id, event_id: event_id}).then(function(results){
-
         models.RSVP.findAll().then(function(results){
           expect(results.length).toEqual(1);
           done();
