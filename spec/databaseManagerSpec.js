@@ -55,7 +55,7 @@ describe("Database Manager", function() {
     });
   })
 
-  it('adds RSVPs to database', function(done){
+  it('gets Matches from database', function(done){
     var user = {first:'Elizabeth', last:'Coffee', email:'test@example.com', pic:'123', gender:'F', age: '14'}
     var user2 = {first:'Tom', last: 'Stuart', email:'a@b.com', pic:'567', gender:'M', age: '24'}
     models.User.create(user).then(function(results){
@@ -67,7 +67,7 @@ describe("Database Manager", function() {
       models.RSVP.create({EventId: event_id, UserId: user2.id}).then(function(){
 
         databaseManager.getMatches({user_id: user_id}).then(function(results){
-          expect(results).toEqual([user2.dataValues]);
+          expect(results[0].first).toContain(user2.dataValues.first);
           done();
         });
       })
