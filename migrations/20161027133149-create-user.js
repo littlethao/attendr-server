@@ -14,17 +14,11 @@ module.exports = {
       last: {
         type: Sequelize.STRING
       },
-      email: {
+      fbid: {
         type: Sequelize.STRING,
         unique: true
       },
-      pic: {
-        type: Sequelize.STRING
-      },
       gender: {
-        type: Sequelize.STRING
-      },
-      age: {
         type: Sequelize.STRING
       },
       createdAt: {
