@@ -34,6 +34,8 @@ function _createEvent(event, callback){
 
 function _makeEvent(event){
   var address = (event.venue ? event.venue.address_1 : "London");
+  var long = (event.venue ? event.venue.lon : "");
+  var lat = (event.venue ? event.venue.lat : "");
   var description = (event.description ? event.description : "Unknown" );
   return {
     name: event.name,
@@ -41,7 +43,9 @@ function _makeEvent(event){
     address: address,
     date: new Date(parseInt(event.time)),
     link: event.link,
-    meetup_id: event.id
+    meetup_id: event.id,
+    Longitude: long,
+    Latitude: lat
   }
 }
 
